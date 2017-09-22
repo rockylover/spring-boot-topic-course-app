@@ -11,6 +11,8 @@ public class TopicService {
 	
 	@Autowired
 	private TopicRepository topicRepository;
+	
+	private int startId = 1;
 			
 	public List<Topic> getAllTopics() {
 		List<Topic> retVal = new ArrayList<>();
@@ -19,19 +21,22 @@ public class TopicService {
 		return retVal;
 	}
 	
-	public Topic getTopic(String id) {
+	public Topic getTopic(int id) {
 		return topicRepository.findOne(id);
 	}
 
 	public void addTopic(Topic topic) {
+		topic.setId(startId);
+		startId++;
 		topicRepository.save(topic);
 	}
 
-	public void updateTopic(String id, Topic topic) {
+	public void updateTopic(int id, Topic topic) {
+		topic.setId(id);
 		topicRepository.save(topic);
 	}
 
-	public void deleteTopic(String id) {
+	public void deleteTopic(int id) {
 		topicRepository.delete(id);
 	}
 	
